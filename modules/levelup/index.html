@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+ <meta name="theme-color" content="#101222"><meta name="description" content="LevelUp Life — convierte tus hábitos, metas y misiones en progreso real.">
+ <link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./assets/icon-192.png" type="image/png">
+ <link rel="stylesheet" href="./style.css"><title>LevelUp Life · Tu vida en modo épico</title>
+</head>
+<body>
+<div id="app" class="app-shell">
+ <aside class="sidebar" id="sidebar">
+  <div class="logo-area"><div class="logo-symbol">L<span>↑</span></div><div class="logo-copy"><strong>LEVELUP<span> LIFE</span></strong><small>YOUR LIFE. YOUR GAME.</small></div></div>
+  <div class="sidebar-group-label">EXPLORAR</div><nav id="side-nav" aria-label="Menú principal"></nav>
+  <div class="sidebar-bottom"><div class="daily-tip"><div class="tip-icon">✦</div><div><b>Un día a la vez.</b><small>Los pequeños pasos construyen grandes historias.</small></div></div><div class="brand-foot">✦ EDICIÓN PERSONAL · 1.0</div></div>
+ </aside>
+ <div id="side-backdrop" class="side-backdrop"></div>
+ <div class="main-wrap">
+  <header class="topbar"><button id="mobile-menu" class="icon-button hamburger" aria-label="Abrir menú">☰</button><div class="breadcrumb" id="breadcrumb"><span class="crumb-muted">TU AVENTURA</span><span class="crumb-arrow">/</span><b>Panel principal</b></div><div class="top-actions"><span id="live-date" class="top-date"></span><span id="top-coins" class="top-coins">◈ 0</span><button id="profile-button" class="profile-avatar" title="Mi perfil">⚡</button></div></header>
+  <main id="page" class="page" tabindex="-1"></main>
+ </div>
+ <nav id="bottom-nav" class="bottom-nav" aria-label="Navegación móvil"></nav>
+ <div id="toast-region" class="toast-region" aria-live="polite"></div>
+ <div id="modal-root"></div>
+ <div id="celebration-layer"></div>
+</div>
+<script src="./app.js" defer></script>
+</body></html>

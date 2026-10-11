@@ -1,0 +1,17 @@
+JOSHOS 1.0 · TU UNIVERSO PERSONAL
+
+1) Crea en GitHub un repositorio NUEVO llamado "joshos".
+2) Descomprime JoshOS_PROYECTO_COMPLETO.zip.
+3) En GitHub: Add file > Upload files > arrastra el CONTENIDO de la carpeta extraída. Debe quedar index.html en la raíz. Asegúrate de incluir .github/workflows/compilar-joshos.yml.
+4) Commit changes.
+5) Settings > Pages > Deploy from a branch > main > /(root) > Save.
+6) Para Android/Windows: Actions > Compilar JoshOS (Android APK y Windows EXE) > Run workflow.
+7) Cuando las dos tareas estén en verde, abre la ejecución y descarga Artifacts.
+
+ANTES DE MIGRAR DATOS: exporta los respaldos JSON de Mi Bitácora de Fe y LevelUp Life. En JoshOS: Configuración > Restaurar respaldo JSON; importa cada uno.
+
+IMPORTANTE: los datos de tus apps Android/Windows anteriores NO aparecen automáticamente al instalar JoshOS. No desinstales tus apps antiguas hasta comprobar la migración.
+
+Android compila APK debug (pruebas personales, firma no persistente). Windows EXE no está firmado comercialmente. Ambos flujos requieren ejecutar y probarse en GitHub Actions.
+
+Consulta README.md para todos los detalles y las precauciones de privacidad.
