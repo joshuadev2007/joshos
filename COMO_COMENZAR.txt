@@ -1,17 +1,19 @@
-JOSHOS 1.0 · TU UNIVERSO PERSONAL
+JOSHOS 2.0 · SUITE PERSONAL COMPLETA
 
-1) Crea en GitHub un repositorio NUEVO llamado "joshos".
-2) Descomprime JoshOS_PROYECTO_COMPLETO.zip.
-3) En GitHub: Add file > Upload files > arrastra el CONTENIDO de la carpeta extraída. Debe quedar index.html en la raíz. Asegúrate de incluir .github/workflows/compilar-joshos.yml.
-4) Commit changes.
-5) Settings > Pages > Deploy from a branch > main > /(root) > Save.
-6) Para Android/Windows: Actions > Compilar JoshOS (Android APK y Windows EXE) > Run workflow.
-7) Cuando las dos tareas estén en verde, abre la ejecución y descarga Artifacts.
+ACORDAMOS: NO COMPILAR APK NI EXE TODAVÍA.
 
-ANTES DE MIGRAR DATOS: exporta los respaldos JSON de Mi Bitácora de Fe y LevelUp Life. En JoshOS: Configuración > Restaurar respaldo JSON; importa cada uno.
+Si ya tenés el repositorio joshuadev2007/joshos:
+1) Abrí JoshOS 1.0, andá a Configuración y descargá un respaldo JSON.
+2) Extraé el ZIP «JoshOS_ACTUALIZACION_2_0.zip».
+3) En GitHub, dentro de joshos, seleccioná Add file > Upload files.
+4) Arrastrá todos los archivos extraídos a la raíz del repositorio. Conservar games/penales.html, native/prepare.mjs y demás rutas.
+5) Tocá Commit changes. ¡Nada de Actions todavía!
+6) Probá JoshOS 2.0 desde GitHub Pages.
 
-IMPORTANTE: los datos de tus apps Android/Windows anteriores NO aparecen automáticamente al instalar JoshOS. No desinstales tus apps antiguas hasta comprobar la migración.
+Las nuevas secciones son Mi Día Perfecto, Metas de Ahorro, De Cero a Mi Meta, Aula Mágica, Reino Rojinegro y Penalty Legends. El resto continúa disponible. No está «Nuestra Historia» (app de pareja).
 
-Android compila APK debug (pruebas personales, firma no persistente). Windows EXE no está firmado comercialmente. Ambos flujos requieren ejecutar y probarse en GitHub Actions.
+Cuando vos decidas compilar, GitHub Actions podrá preparar Android APK y Windows EXE. Antes de eso se revisarán los detalles de los instaladores y la preservación de datos.
 
-Consulta README.md para todos los detalles y las precauciones de privacidad.
+Los datos se guardan localmente por dispositivo; la migración desde Bitácora y LevelUp requiere JSON. No subas los JSON privados a GitHub público. La bóveda cifra solo sus notas; el resto se almacena localmente sin cifrado.
+
+Para más detalles consultá README.md y GUIA_PARA_ACTUALIZAR.txt.

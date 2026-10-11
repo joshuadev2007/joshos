@@ -5,6 +5,7 @@ const dest=path.join(root,mode,'www');fs.rmSync(dest,{recursive:true,force:true}
 for(const f of ['index.html','app.js','style.css','sw.js','manifest.webmanifest'])fs.copyFileSync(path.join(root,f),path.join(dest,f));
 fs.cpSync(path.join(root,'assets'),path.join(dest,'assets'),{recursive:true});
 fs.cpSync(path.join(root,'modules'),path.join(dest,'modules'),{recursive:true});
+fs.cpSync(path.join(root,'games'),path.join(dest,'games'),{recursive:true});
 if(mode==='mobile'){
  let html=fs.readFileSync(path.join(dest,'index.html'),'utf-8');html=html.replace('<script src="./app.js" defer></script>','<script src="./native-bridge.js" defer></script><script src="./app.js" defer></script>');fs.writeFileSync(path.join(dest,'index.html'),html);
 }

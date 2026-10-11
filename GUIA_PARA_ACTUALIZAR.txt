@@ -1,0 +1,13 @@
+JOSHOS 2.0 · SUITE PERSONAL COMPLETA
+
+1. NO hace falta compilar Android ni Windows todavía.
+2. En la versión actual: Ajustes → Exportar todo JoshOS (.json). Guardá ese archivo privado en tu dispositivo, nunca en el repositorio público.
+3. En GitHub, repositorio joshuadev2007/joshos, subí el contenido del ZIP de ACTUALIZACIÓN, no el ZIP cerrado.
+4. Conservá las carpetas, sobre todo games/penales.html y native/prepare.mjs.
+5. Presioná Commit changes. GitHub Pages actualizará la versión web.
+6. Probá JoshOS en el navegador: Mi Día Perfecto, Ahorros, Ingresos Online, Aula Mágica, Reino Rojinegro y Penalty Legends.
+7. Cuando estés conforme, y solo cuando vos lo decidás, entraremos a Actions a compilar un APK y un EXE nuevos.
+
+NO se incluye la aplicación de pareja «Nuestra Historia».
+
+NOTAS: Los registros se guardan localmente por dispositivo; JoshOS no sincroniza automáticamente. La bóveda cifra solo sus propias notas; el resto de la información se guarda localmente sin cifrar. El resultado de los partidos de Reino Rojinegro se ingresa manualmente, no son datos en vivo. Aula Mágica no constituye planeamiento oficial del MEP. El minijuego de penales no es el juego Penales Rojinegros de la web.

@@ -1,1 +1,47 @@
-{"name":"joshos-windows","version":"1.0.0","private":true,"description":"JoshOS, tu universo personal en Windows","main":"main.cjs","author":"JoshOS","license":"UNLICENSED","scripts":{"dist":"electron-builder --win nsis portable --x64 --publish never"},"devDependencies":{"electron":"^38.0.0","electron-builder":"^26.0.0","pdfjs-dist":"4.10.38","esbuild":"^0.25.0"},"build":{"appId":"com.joshuadev2007.joshos.windows","productName":"JoshOS","asar":true,"directories":{"output":"dist"},"files":["main.cjs","www/**/*","package.json"],"win":{"icon":"icon.ico","target":["nsis","portable"]},"nsis":{"oneClick":false,"allowToChangeInstallationDirectory":true,"perMachine":false,"artifactName":"JoshOS-Setup-${version}-${arch}.${ext}"},"portable":{"artifactName":"JoshOS-Portable-${version}-${arch}.${ext}"}}}
+{
+  "name": "joshos-windows",
+  "version": "2.0.0",
+  "private": true,
+  "description": "JoshOS, tu universo personal en Windows",
+  "main": "main.cjs",
+  "author": "JoshOS",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dist": "electron-builder --win nsis portable --x64 --publish never"
+  },
+  "devDependencies": {
+    "electron": "^38.0.0",
+    "electron-builder": "^26.0.0",
+    "pdfjs-dist": "4.10.38",
+    "esbuild": "^0.25.0"
+  },
+  "build": {
+    "appId": "com.joshuadev2007.joshos.windows",
+    "productName": "JoshOS",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.cjs",
+      "www/**/*",
+      "package.json"
+    ],
+    "win": {
+      "icon": "icon.ico",
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "artifactName": "JoshOS-Setup-${version}-${arch}.${ext}"
+    },
+    "portable": {
+      "artifactName": "JoshOS-Portable-${version}-${arch}.${ext}"
+    }
+  }
+}

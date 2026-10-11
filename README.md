@@ -1,10 +1,16 @@
 # JoshOS ✦ · Tu universo personal
 
-**JoshOS 1.0** es una aplicación privada y local para organizar tu vida desde Android, Windows y web. Incluye **Mi Bitácora de Fe 3.2** y **LevelUp Life 1.0** como módulos completos que se abren dentro de JoshOS. No hay anuncios ni planes de pago; los datos se guardan en el dispositivo.
+**JoshOS 2.0** es una aplicación privada y local para organizar tu vida desde Android, Windows y web. Incluye **Mi Bitácora de Fe 3.2** y **LevelUp Life 1.0** como módulos completos que se abren dentro de JoshOS. No hay anuncios ni planes de pago; los datos se guardan en el dispositivo.
 
 ## ¿Qué incluye?
 
 - **Inicio inteligente:** pendientes de hoy, resumen de colones, avance personal, XP de LevelUp y reflexiones de Bitácora (cuando hay datos).
+- **Mi Día Perfecto:** citas, compromisos, agenda semanal editable, horario y ubicaciones; sin prometer notificaciones automáticas.
+- **De Cero a Mi Meta:** registro de encargos online, estados de cobro y traspaso único a Mis Colones cuando se cobran.
+- **Metas de ahorro:** objetivos y abonos manuales, sin conexiones bancarias.
+- **Aula Mágica:** cuatro actividades modelo originales para preescolar y planeamientos editables e imprimibles.
+- **Reino Rojinegro:** bitácora personal de partidos, marcadores y notas; sin marcadores en vivo.
+- **Penalty Legends:** minijuego autónomo de penales dentro de JoshOS, compatible con ratón y pantalla táctil.
 - **Agenda:** crear, editar, completar y filtrar tareas por fecha. Las tareas nuevas completadas dan +20 XP y +8 monedas en LevelUp cuando el módulo ya tiene datos locales.
 - **Mis Colones:** movimientos de ingresos y gastos en colones, balance y visualización por meses. Todo manual; sin bancos conectados.
 - **Control de pagos:** suscripciones y servicios con fecha mensual, pausar/activar y gasto mensual/anual estimado.
@@ -17,7 +23,7 @@
 - **Inventario:** pertenencias, ubicaciones, compras y garantías.
 - **SkillForge:** tarjetas de estudio y repaso espaciado.
 - **Bóveda:** notas textuales cifradas con AES-GCM y PBKDF2-SHA256, 250 000 iteraciones; la frase nunca se guarda. No es un gestor de contraseñas auditado. Si se pierde la frase, el contenido no se recupera.
-- **Recuerdos:** fechas y escritos especiales.
+- **Archivo personal:** recuerdos y hitos personales; no incluye módulo de pareja.
 - **Apps integradas:** Módulos originales de Mi Bitácora de Fe y LevelUp Life, con todas sus vistas.
 - **Respaldos:** exportación de JoshOS que también incluye las bases locales de Bitácora y LevelUp. Importación de JoshOS o exportaciones JSON de cualquiera de las dos apps anteriores.
 
@@ -65,3 +71,12 @@ Si las páginas de tus proyectos anteriores están en `https://joshuadev2007.git
 - No subas respaldos personales a un repositorio público de GitHub.
 - En cualquier actualización, exporta primero un respaldo, especialmente antes de desinstalar apps.
 - Las notas cifradas de la bóveda quedan cifradas en el JSON de respaldo; conserva la frase de desbloqueo en un lugar seguro.
+
+
+## JoshOS 2.0 · Suite personal
+
+No se incluye **Nuestra Historia** ni ninguna función específica de pareja. Los módulos siguen funcionando sin conexión para su información local; Reino Rojinegro es un registro manual y Penalty Legends es un minijuego propio, no un reemplazo del juego conectado al sitio deportivo.
+
+Los nuevos datos (`appointments`, `savingsGoals`, `gigs`, `classPlans`, `matches`) se guardan en el mismo objeto `joshos-life-v1`, manteniendo compatibilidad con respaldos previos. Antes de actualizar, exporta el JSON anterior. No compiles APK/EXE hasta que hayas revisado los módulos en la PWA.
+
+*Los documentos de Aula Mágica son plantillas editables para apoyar el trabajo docente, no planeamientos oficiales del MEP. Los cobros registrados por usuario no equivalen a factura electrónica o asiento contable.*
