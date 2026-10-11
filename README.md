@@ -80,3 +80,10 @@ No se incluye **Nuestra Historia** ni ninguna función específica de pareja. Lo
 Los nuevos datos (`appointments`, `savingsGoals`, `gigs`, `classPlans`, `matches`) se guardan en el mismo objeto `joshos-life-v1`, manteniendo compatibilidad con respaldos previos. Antes de actualizar, exporta el JSON anterior. No compiles APK/EXE hasta que hayas revisado los módulos en la PWA.
 
 *Los documentos de Aula Mágica son plantillas editables para apoyar el trabajo docente, no planeamientos oficiales del MEP. Los cobros registrados por usuario no equivalen a factura electrónica o asiento contable.*
+
+
+## ☁️ NUEVO: Cuenta y sincronización
+
+La interfaz incorpora «☁️ Cuenta», con correo/contraseña de Supabase y sincronización por dispositivo. Para activarla, leé `COMO_ACTIVAR_LA_CUENTA.md` y ejecutá `CONFIGURAR_SUPABASE.sql` en **tu propio proyecto** de Supabase. Reutilizá la MISMA URL y clave pública en JoshOS y Bitácora. **Nunca** coloqués claves `service_role` o `sb_secret_...` en GitHub.
+
+Se preservaron las claves originales de almacenamiento local. Exportá respaldos JSON antes de sincronizar; cuando haya dos copias diferentes, elegirás qué conservar. No hay fusión automática de cambios y los PDF importados manualmente no se sincronizan. La nube conserva el contenido en texto legible para el servicio (excepto notas ya cifradas de la bóveda).
