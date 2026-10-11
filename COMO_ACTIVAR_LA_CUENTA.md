@@ -9,7 +9,7 @@ Exportá un respaldo JSON de **cada app y cada dispositivo** en Ajustes. No desi
 2. Entrá en **SQL Editor**, creá una consulta y pegá el archivo `CONFIGURAR_SUPABASE.sql` completo. Ejecutálo. Activa RLS y permite ver los propios datos únicamente a cada usuario autenticado.
 3. En Authentication -> Providers verificá que Email esté habilitado. Para mayor seguridad, mantené **Confirm email** activado (deberás confirmar el mensaje que te envíen).
 4. En Project Settings -> API Keys, buscá **Project URL** y la clave **publishable** (o **anon**, según el panel). **NUNCA** utilicés `service_role` ni `sb_secret_...` en una app, chat, archivo o GitHub.
-5. En JoshOS y en Mi Bitácora, tocá **☁️ Cuenta**, pegá la URL y la clave pública y guardá. Este paso se repite en cada app y dispositivo (no requiere volver a ejecutar SQL).
+5. **En JoshOS 2.2 y Mi Bitácora de Fe 3.3.2 los datos técnicos del servidor ya están incorporados**. Tocá **☁️ Cuenta** y usá únicamente correo y contraseña. No tenés que volver a introducir URL ni clave pública en PC o Android.
 6. En una app, **Crear cuenta** con correo y contraseña; si recibís mensaje de confirmación, confirmálo y luego pulsá Entrar.
 7. En el otro dispositivo, **Entrar** con el MISMO correo y contraseña. Ambas apps usan un mismo usuario de Supabase, pero guardan sus contenidos por separado.
 
@@ -27,6 +27,6 @@ Exportá un respaldo JSON de **cada app y cada dispositivo** en Ajustes. No desi
 
 ## Publicar y generar APK / EXE
 
-Actualizá los archivos con los ZIP de este paquete, manteniendo la estructura de cada repositorio. Recompilá Android y Windows desde Actions: **la versión instalada previamente no obtiene el inicio de sesión sin actualizar el programa**. En web, recargá y comprobá la nueva opción **☁️ Cuenta**. Configurá la URL y la clave pública en cada app desde la interfaz, sin necesidad de editar código.
+Actualizá los archivos con los ZIP de este paquete, manteniendo la estructura de cada repositorio. Recompilá Android y Windows desde Actions: **la versión instalada previamente no obtiene el inicio de sesión sin actualizar el programa**. En web, recargá y comprobá la nueva opción **☁️ Cuenta**. La URL y la publishable key de Josh Cloud ya van incorporadas en los instaladores nuevos; solo ingresá tu correo y contraseña.
 
 IMPORTANTE: Los repositorios y las apps web pueden ser públicos; eso NO hace públicas las notas si las políticas RLS de Supabase están aplicadas. No subás respaldos JSON, contraseñas ni service keys a GitHub. No desactives RLS.
