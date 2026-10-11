@@ -1,5 +1,5 @@
 // JoshOS offline shell; user data remains in browser-local storage.
-const VERSION='joshos-shell-cloud-2.1.0';
+const VERSION='joshos-shell-cloud-2.1.1';
 const ESSENTIAL=['./','./index.html','./cloud-config.js','./cloud-sync.js','./cloud-sync.css','./app.js','./style.css','./manifest.webmanifest','./assets/icon-192.png','./assets/icon-512.png','./games/penales.html','./modules/fe/index.html','./modules/fe/app.js','./modules/fe/style.css','./modules/levelup/index.html','./modules/levelup/app.js','./modules/levelup/style.css'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(VERSION).then(c=>c.addAll(ESSENTIAL)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(Promise.all([caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==VERSION).map(k=>caches.delete(k)))),self.clients.claim()]))});
