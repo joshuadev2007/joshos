@@ -40,7 +40,7 @@ function centro(){
  const favorites=Array.isArray(db.settings.shortcuts)?db.settings.shortcuts:defaultShortcuts;
  const list=nav.filter(n=>!['inicio','centro','ajustes'].includes(n.id));
  const saved=list.filter(n=>favorites.includes(n.id));
- const num=(db.savingsGoals||[]).reduce((sum,g)=>sum+(Number(g.saved)||0),0);
+ const num= (db.savingsGoals||[]).reduce((sum,g)=>sum+(Number(g.saved)||0),0);
  const urgent=active.filter(t=>!t.date||t.date<=today());
  const summary='<div class="cards">'+metric('✓','Pendientes urgentes',urgent.length,'Sin completar')+metric('₡','Balance actual',money(totalBalance()),'Mis Colones')+metric('🎯','Ahorro registrado',money(num),'Metas de ahorro')+metric('🚀','Proyectos activos',projects.length,'En progreso')+'</div>';
  const favoritesUI=saved.length?'<div class="appgrid">'+saved.map(n=>'<button class="appcard" data-go="'+esc(n.id)+'"><span class="appicon">'+n.icon+'</span><strong>'+esc(n.label)+'</strong><small>Abrir aplicación →</small></button>').join('')+'</div>':empty('Seleccioná tus accesos favoritos aquí abajo.','⭐');

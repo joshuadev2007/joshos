@@ -1,6 +1,6 @@
 # JoshOS ✦ · Tu universo personal
 
-**JoshOS 2.2** es una suite personal que funciona sin conexión y permite sincronización opcional con Josh Cloud para organizar tu vida desde Android, Windows y web. Incluye **Mi Bitácora de Fe 3.3.2** y **LevelUp Life 1.0** como módulos completos que se abren dentro de JoshOS. No hay anuncios ni planes de pago; los datos se guardan en el dispositivo.
+**JoshOS 2.2** es una suite personal que funciona sin conexión y admite sincronización opcional con Josh Cloud para organizar tu vida desde Android, Windows y web. Incluye **Mi Bitácora de Fe 3.3.2** y **LevelUp Life 1.0** como módulos completos que se abren dentro de JoshOS. No hay anuncios ni planes de pago; los datos se guardan en el dispositivo.
 
 ## ¿Qué incluye?
 
@@ -55,7 +55,7 @@ Cada aplicación Android o Windows tiene su almacenamiento local independiente. 
 
 ### Nota sobre GitHub Pages
 
-Si las páginas de tus proyectos anteriores están en `https://joshuadev2007.github.io/`, pueden compartir `localStorage` al usar **exactamente ese mismo origen**, por la política de origen del navegador. Esto no se aplica a apps instaladas en Android y Windows, que usan almacenamiento separado. JoshOS sincroniza registros compatibles mediante Josh Cloud al iniciar sesión; no cifra de extremo a extremo todo el almacenamiento general, aunque la bóveda sí cifra sus notas.
+Si las páginas de tus proyectos anteriores están en `https://joshuadev2007.github.io/`, pueden compartir `localStorage` al usar **exactamente ese mismo origen**, por la política de origen del navegador. Esto no se aplica a apps instaladas en Android y Windows, que usan almacenamiento separado. JoshOS sincroniza los registros compatibles mediante Josh Cloud si iniciás sesión. No cifra de extremo a extremo todo el almacenamiento general; la bóveda sí cifra sus notas.
 
 ## Estructura
 
@@ -89,13 +89,13 @@ La interfaz incorpora «☁️ Cuenta», con correo/contraseña de Supabase y si
 Se preservaron las claves originales de almacenamiento local. Exportá respaldos JSON antes de sincronizar; cuando haya dos copias diferentes, elegirás qué conservar. No hay fusión automática de cambios y los PDF importados manualmente no se sincronizan. La nube conserva el contenido en texto legible para el servicio (excepto notas ya cifradas de la bóveda).
 
 
-## JoshOS 2.2 · Suite original completada (sin app de pareja)
+## Versión 2.2 · Todas las apps originales (excepto pareja)
 
-- **Mi Centro de Control**: tablero independiente con pendientes, próximos eventos, proyectos, ahorros, trabajos por cobrar y accesos rápidos personalizables. Accedé desde el menú o desde la portada.
-- **Mi Bitácora de Fe integrada 3.3.2**: contenido y configuración Josh Cloud actualizados. Al abrirla dentro de JoshOS, la sincronización la gestiona el contenedor; en la app independiente, la maneja su propia cuenta.
-- **LevelUp Life**: copia integrada coincide con el repositorio original; mantiene su propio almacenamiento local, compartido con el contenedor en el mismo origen.
-- **Cuenta Josh Cloud preconfigurada**: en versiones actualizadas de web, Windows y Android solo se necesita correo y contraseña, sin pegar URL ni clave técnica. La publishable key es pública. Nunca guardar secretos de administrador.
-- **Todos los módulos originales acordados**: Mis Colones, Control+, Tuanis Manager, Segundo Cerebro, Mi Día Perfecto, De Cero a Mi Meta, Mi Centro de Control, Mi Despensa, Mi Bienestar, Mis Cosas, SkillForge, Aula Mágica, Bóveda, Penalty Legends, Reino Rojinegro, Bitácora y LevelUp.
-- **Sin app de pareja**. No se agregaron funciones específicas para parejas ni se cambiaron las claves de datos existentes.
+- **Mi Centro de Control:** tablero dedicado con tareas, eventos, proyectos, ahorros, pendientes online y accesos rápidos personalizables.
+- **Bitácora integrada actualizada:** versión 3.3.2; Josh Cloud configurado en la app contenedora.
+- **LevelUp Life:** módulo original completo conservado y verificado.
+- **Josh Cloud:** correo y contraseña sin solicitar URL ni claves técnicas en Android, Windows o web. URL y clave pública preconfiguradas.
+- El usuario puede seguir trabajando sin conexión. La sincronización no fusiona automáticamente registros divergentes de dos dispositivos: pide elegir copia. La biblioteca privada de PDF no se sincroniza.
+- La aplicación específica de pareja sigue excluida.
 
-Importante: la sincronización entre dispositivos es una **copia por módulo con resolución manual de conflictos**, no edición colaborativa ni fusión de cambios; los PDF privados en IndexedDB no se sincronizan. Exportá JSON antes de importar o instalar nuevas versiones. El APK y EXE todavía requieren compilación y prueba con GitHub Actions y dispositivos reales.
+**Precaución:** antes de instalar nuevas versiones o importar en otro dispositivo, descargá respaldos JSON. El APK y EXE aún requieren compilarse y probarse en equipos reales.

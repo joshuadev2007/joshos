@@ -1,0 +1,22 @@
+JOSHOS 2.2 — SUITE COMPLETA, SIN APP DE PAREJA
+
+ESTADO: los archivos fuente YA ESTAN SUBIDOS a GitHub en joshuadev2007/joshos.
+No hace falta volverlos a subir si vas a compilar desde ese repositorio.
+
+NOVEDADES: Mi Centro de Control con favoritos, Bitacora integrada 3.3.2,
+Josh Cloud listo sin pedir la URL ni la clave publica, LevelUp Life intacto,
+y el resto de las herramientas previamente acordadas.
+
+RECOMENDACIONES:
+1. Antes de instalar o actualizar: respaldá los JSON locales de JoshOS,
+   Bitacora y LevelUp, y guardá una copia fuera de GitHub.
+2. Para probar la web: https://joshuadev2007.github.io/joshos/
+   Si ves una version anterior, cerrá la pestaña y recargá con Ctrl+F5.
+3. Si tenés cuentas en dos dispositivos, iniciá sesión con el mismo correo.
+   Una diferencia entre copias requiere elegir cuál conservar; NO fusiona cambios.
+4. Los PDF que importaste en la Bitacora permanecen locales y no suben a la nube.
+5. APK/EXE AUN NO COMPILADOS con esta actualizacion. Para generarlos en el futuro,
+   usá Actions -> Compilar JoshOS -> Run workflow; revisá que termine en verde.
+   Un APK debug puede requerir desinstalar versiones antiguas con otra firma:
+   hacé respaldo ANTES de cualquier desinstalación.
+6. La app de pareja sigue expresamente excluida.
