@@ -1,0 +1,21 @@
+JOSHOS 3.0 STUDIO — ¡BIENVENIDO!
+
+CONTENIDO
+- Completo: todo el repositorio, con módulos originales, PDFs, fuentes y scripts para compilar.
+- Actualización: solo archivos actualizados desde JoshOS 2.2.
+- No incluye la app de pareja.
+
+ANTES DE PUBLICAR
+1. En JoshOS 2.2 abrí Configuración -> Exportar respaldo JSON. Guardalo fuera de GitHub.
+2. En Mi Bitácora y LevelUp Life exportá también tus respaldos si los usás por separado.
+3. Para actualizar JoshOS: extraé el ZIP de actualización y subí TODO SU CONTENIDO respetando directorios (incluido modules/fe/) al repositorio joshuadev2007/joshos, reemplazando los archivos existentes. NO subás la carpeta contenedora del ZIP.
+4. Para actualizar la app independiente Bitácora: usá su ZIP de actualización en joshuadev2007/mi-bitacora-de-fe. Son DOS repositorios distintos.
+5. Después de hacer Commit changes, esperá a que GitHub Pages publique y recargá con Ctrl+F5.
+6. Revisá JoshOS, Mis Colones, SkillForge, nuevos módulos, Bitácora -> Mis versículos.
+7. SOLO DESPUÉS compilá desde Actions el APK/EXE de cada repo. Revisá qué artefactos se producen y sus firmas antes de instalar.
+
+IMPORTANTE
+- Los ZIP NO contienen tus datos personales, credenciales privadas ni APK/EXE precompilados.
+- La URL y publishable key pública de Supabase están incluidas; esta clave no es secreta. Nunca uses service_role.
+- Los datos entre PC y Android requieren iniciar sesión y resolver posibles diferencias entre copias; los PDF personales importados no se sincronizan.
+- Conservar versiones viejas hasta validar los respaldos. Compilación nativa y prueba multidispositivo todavía pendientes.

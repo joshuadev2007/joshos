@@ -1,6 +1,6 @@
 {
   "name": "joshos-windows",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "private": true,
   "description": "JoshOS, tu universo personal en Windows",
   "main": "main.cjs",

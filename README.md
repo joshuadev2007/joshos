@@ -1,6 +1,6 @@
-# JoshOS ✦ · Tu universo personal
+# JoshOS 3.0 STUDIO — entorno personal modular
 
-**JoshOS 2.2** es una suite personal que funciona sin conexión y admite sincronización opcional con Josh Cloud para organizar tu vida desde Android, Windows y web. Incluye **Mi Bitácora de Fe 3.3.2** y **LevelUp Life 1.0** como módulos completos que se abren dentro de JoshOS. No hay anuncios ni planes de pago; los datos se guardan en el dispositivo.
+**Edición nueva:** diseño y herramientas especiales por cada área, módulos originales preservados, seis apps nuevas, explorador aleatorio de versículos en Bitácora 3.4 y Josh Cloud preconfigurado. **No hay app de pareja**.
 
 ## ¿Qué incluye?
 
@@ -99,3 +99,49 @@ Se preservaron las claves originales de almacenamiento local. Exportá respaldos
 - La aplicación específica de pareja sigue excluida.
 
 **Precaución:** antes de instalar nuevas versiones o importar en otro dispositivo, descargá respaldos JSON. El APK y EXE aún requieren compilarse y probarse en equipos reales.
+
+
+## Actualización principal 3.0 STUDIO
+
+### Seis apps nuevas y operativas
+
+1. **Enfoque Studio**: cronómetro manual de 15/25/45/60 minutos, iniciar, pausar, reiniciar y guardar tiempo de trabajo. El conteo no garantiza avisos cuando el sistema suspende la app.
+2. **Rituales y hábitos**: registro diario de rutinas personalizadas, seguimiento por día y vista de siete días.
+3. **Mi Academia**: materias o cursos propios, objetivo de horas, sesiones y temas aprendidos.
+4. **Mi Cocina**: recetario, ingredientes hacia la lista de compras, menú de siete días y artículos pendientes.
+5. **Mi Red**: libreta local de contactos, notas y seguimiento, sin acceso automático a la agenda del celular.
+6. **Revisión Semanal**: logros, aprendizajes, mejora para la próxima semana, prioridad y métricas de tiempo, tareas y dinero.
+
+### Nuevas herramientas de los módulos previos
+
+- **Mis Colones**: presupuestos mensuales por categoría, desglose y barras de gasto, CSV descargable. **No enlaza cuentas bancarias**.
+- **SkillForge**: repaso activo con respuesta oculta, evaluar recordado/repasar, intervalos progresivos e importación masiva `Pregunta | Respuesta | Tema`.
+- **Agenda**: vista de prioridades urgentes y distribución por áreas, salto a Enfoque.
+- **Proyectos**: hitos individuales con seguimiento de completados.
+- **Tuanis Manager**: pipeline de cobros y clientes.
+- **Metas de ahorro**: cálculo de aportes mensuales estimados.
+- **Control+**: calendario de cobros activos y estimación anual.
+- **Bienestar**: promedios descriptivos de registros, sin consejos médicos personalizados.
+- **Despensa**: alertas según fechas registradas y salto a Mi Cocina.
+- **Inventario**: garantías próximas al vencimiento.
+- **Biblioteca**: diario de lecturas con minutos, páginas y notas.
+- **Segundo Cerebro**: estadísticas por temas.
+- **Aula Mágica**: tablero de planeamientos.
+- **Archivo personal**: línea temporal de recuerdos.
+- **Reino Rojinegro**: estadísticas de partidos que vos registraste (no resultados oficiales automáticos).
+- **Mi Centro de Control**: tableros y accesos personalizables, ahora junto a la suite ampliada.
+- Cada entorno tiene **una identidad visual** (colores, encabezados, paneles y acciones) y conserva su contenido anterior. LevelUp, Penalty Legends y la Bóveda siguen disponibles.
+
+### Bitácora de Fe 3.4
+
+En **Mis versículos** aparece el explorador: pasaje al azar de una biblioteca de referencias curadas, botón **Nuevo versículo al azar**, consulta del texto Reina-Valera 1909 en línea cuando sea posible, **Guardar** en la colección, **Abrir capítulo** y **Reflexionar** con referencia precargada. Se preservaron el diario, los libros, las oraciones y los respaldos previos. Los textos que requieren internet muestran una referencia de respaldo si no hay conexión.
+
+### Compatibilidad y seguridad
+
+- Sigue empleando `joshos-life-v1`, `mi-bitacora-fe-v1` y `levelup-life-v1`: no se eliminan campos viejos, y las nuevas secciones se agregan con valores por defecto.
+- Los nuevos registros están en el JSON habitual, sincronizable bajo la cuenta Josh Cloud. **Es sincronización de copias completas por módulo**, con conflictos manuales, NO colaboración concurrente en tiempo real. Hacé respaldo de tus datos de ambos dispositivos antes de importar.
+- Josh Cloud usa la URL y clave PUBLICABLE dentro de los archivos web, nunca contraseñas ni claves de servicio. No subás JSON personales a GitHub.
+- Los libros PDF privados importados manualmente a IndexedDB no viajan en la sincronización JSON.
+- La Bóveda utiliza cifrado local para sus notas; el resto de los datos de nube no tiene cifrado de extremo a extremo.
+- Se comprobó el funcionamiento de varias vistas y 12 operaciones en un navegador aislado, así como la lógica de versículos. **No se ha hecho compilación final de APK/EXE ni prueba real de Josh Cloud en dos dispositivos**.
+- En nuevas versiones de Windows/Android debe compilarse el código con GitHub Actions y probarse el instalador resultante. No desinstalés la versión vieja sin respaldo.
