@@ -19,13 +19,13 @@ function storeKey(){const id=userId();return id?PREFIX+id:''}
 function read(){
  const key=storeKey();if(!key)return structuredClone(ephemeral);
  try{const obj=JSON.parse(localStorage.getItem(key)||'null');if(!obj||typeof obj!=='object')return EMPTY();
-  const history=Array.isArray(obj.history)?obj.history.filter(v=>['user','assistant'].includes(v?.role)&&typeof v.text==='string').slice(-20).map(v=>({role:v.role,text:v.text.slice(0,1000),module:String(v.module||'inicio').slice(0,30)})):[];
+  const history=Array.isArray(obj.history)?obj.history.filter(v=>['user','assistant'].includes(v?.role)&&typeof v.text==='string').slice(-20).map(v=>({role:v.role,text:v.text.slice(0,4000),module:String(v.module||'inicio').slice(0,30)})):[];
   const memories=Array.isArray(obj.memories)?obj.memories.filter(v=>typeof v==='string').slice(0,8).map(v=>v.slice(0,180)):[];
   return {history,memories};
  }catch{return EMPTY()}
 }
 function write(x){const value={history:x.history.slice(-20),memories:x.memories.slice(0,8)};const key=storeKey();if(!key){ephemeral=value;return false}try{localStorage.setItem(key,JSON.stringify(value));return true}catch{return false}}
-function addExchange(prompt,reply,module){const d=read();d.history.push({role:'user',text:safe(prompt).slice(0,1200),module},{role:'assistant',text:safe(reply).slice(0,1800),module});return write(d)}
+function addExchange(prompt,reply,module){const d=read();d.history.push({role:'user',text:safe(prompt).slice(0,1200),module},{role:'assistant',text:safe(reply).slice(0,4000),module});return write(d)}
 function addMemory(value){const v=safe(value).replace(/\s+/g,' ').slice(0,180);if(v.length<3)throw Error('Escribí un recuerdo de al menos 3 caracteres.');const d=read();if(d.memories.length>=8)throw Error('Máximo 8 recuerdos. Eliminá uno antes de añadir otro.');if(d.memories.some(m=>m.toLocaleLowerCase()===v.toLocaleLowerCase()))throw Error('Este recuerdo ya existe.');d.memories.push(v);return write(d)}
 function removeMemory(index){const d=read();if(Number.isInteger(index)&&index>=0&&index<d.memories.length){d.memories.splice(index,1);write(d)}}
 function clearHistory(){const d=read();d.history=[];write(d)}

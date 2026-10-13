@@ -3,6 +3,8 @@
 const G=window.JoshAIActionGate,C=window.KaiuContinuity;
 const PROJECT='https://pdgfayuuovhjcqnzgvyb.supabase.co';
 const WORKER_SETTING='kaiu-workers-ai-endpoint-v1';
+const DEPTH_KEY='kaiu-response-depth-v1';
+const validDepth=v=>['breve','normal','detallado'].includes(v)?v:'normal';
 const key=window.CloudDefaultConfig?.anonKey||'';
 const P={rutinas:['🌅 Kaiu Hábitos','Hábitos pequeños, sostenibles y hechos para tu vida.','#a6e7a4'],finanzas:['₡ Kaiu Financiero','Organizá tu dinero sin conectar tus cuentas bancarias.','#7ee2b4'],skillforge:['🎓 Kaiu Profesor','Practicá con tarjetas y rutas de estudio.','#c6b5ff'],agenda:['📅 Kaiu Planificador','Convertí tus ideas en tareas concretas.','#8bc3fc'],estudios:['📐 Kaiu Academia','Prepará aprendizajes con metas claras.','#e6bf8e'],negocios:['💼 Kaiu Emprendedor','Ideas de crecimiento y planes medibles.','#ffd29e'],bitacora:['📖 Kaiu Investigador','Explorá ideas y preguntas respetando tu interpretación.','#b1d8aa']};
 Object.assign(P,{
@@ -52,17 +54,18 @@ async function requestAI(text,module,share){
  const endpoint=workerEndpoint();
  if(!endpoint)throw Error('Todavía falta conectar la dirección pública de tu Worker de Cloudflare. Abrí «Configurar IA» y pegá la URL workers.dev.');
  const token=await getSession();
- const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),30000);
+ const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),60000);
  try{
   const prior=C?.forAI(shareHistory,shareMemories)||{history:[],memories:[]};
   const body={prompt:text.slice(0,1200),module,context:share?context(module):null,
-   history:prior.history,memories:prior.memories,crossContext:crossScopes.length?C.aggregate(crossScopes):null};
+   history:prior.history,memories:prior.memories,crossContext:crossScopes.length?C.aggregate(crossScopes):null,depth:responseDepth};
   const res=await fetch(endpoint+'/chat',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify(body),signal:ctrl.signal,cache:'no-store'});
   const response=await res.json().catch(()=>({}));
   if(!res.ok)throw Error((response.error||('Cloudflare: error '+res.status))+(response.code?' · '+response.code:''));
   return {reply:String(response.reply||''),actions:Array.isArray(response.actions)?response.actions:[]};
  }finally{clearTimeout(timer)}
 }
+let responseDepth=validDepth(localStorage.getItem(DEPTH_KEY)||'normal');
 let draft='',shareStats=false,shareHistory=true,shareMemories=false,crossScopes=[],connectionStatus='',continuityNotice='',displayUserId=C.userId();
 async function testConnection(){
  if(busy)return;
@@ -89,7 +92,7 @@ function screen(){
   <button class="kaiu-close" aria-label="Cerrar asistente" title="Cerrar" type="button" data-kaiu-close>×</button>
  </div>
  <div class="kaiu-content">
-  <section class="kaiu-intro"><div class="kaiu-intro-kicker">✦ KAIU INTELLIGENCE · 6.3</div><h2>Tu próxima gran idea empieza aquí.</h2><p>Contame qué querés lograr. Kaiu organiza, propone y te acompaña; vos decidís qué guardar.</p><div class="kaiu-features"><span>✦ IA generativa</span><span>◎ Continuidad</span><span>✓ Permisos granulares</span></div></section>
+  <section class="kaiu-intro"><div class="kaiu-intro-kicker">✦ KAIU PRO · 6.4</div><h2>Tu próxima gran idea empieza aquí.</h2><p>Contame qué querés lograr. Kaiu organiza, propone y te acompaña; vos decidís qué guardar.</p><div class="kaiu-features"><span>✦ IA generativa</span><span>◎ Continuidad</span><span>✧ Respuestas a tu medida</span></div></section>
   <div class="kaiu-worker-state"><div class="kaiu-server-main"><i class="kaiu-server-dot ${ready?'':'off'}" aria-hidden="true"></i><span><strong>${ready?'Cloudflare AI configurado':'Conexión de IA pendiente'}</strong><small>${ready?'Verificá tu sesión antes de consultar':'Las propuestas locales siguen disponibles'}</small></span></div><button type="button" id="kaiu-worker-settings">⚙ Configurar</button></div>
   <form id="kaiu-worker-form" hidden><label for="kaiu-worker-url">Dirección de tu Worker de Cloudflare</label><input type="url" id="kaiu-worker-url" placeholder="https://kaiu-joshos-ai.tucuenta.workers.dev" value="${esc(workerEndpoint())}" required><small>Es una URL pública: no pegues contraseñas ni tokens aquí. El enlace viene preconfigurado en JoshOS.</small><button type="submit">Guardar servidor</button></form>
   <div class="kaiu-mini-heading">Probá una idea <small>Tocá una para editarla</small></div>
@@ -110,6 +113,13 @@ function screen(){
    </details>
    <p id="kaiu-continuity-notice" class="kaiu-hint" aria-live="polite">${esc(continuityNotice)}</p>
   </section>
+  <section class="kaiu-depth-box" aria-label="Profundidad de respuesta">
+   <div class="kaiu-depth-heading"><strong>✧ ¿Qué tan detallado querés que responda?</strong><small>La opción elegida se guarda en este navegador</small></div>
+   <div class="kaiu-depth-choices" role="radiogroup" aria-label="Nivel de detalle">
+    ${[['breve','⚡ Breve','Directo al punto'],['normal','✦ Normal','Equilibrado'],['detallado','📖 Detallado','Más ejemplos y pasos']].map(([value,label,hint])=>`<label class="kaiu-depth-choice ${responseDepth===value?'active':''}"><input type="radio" name="kaiu-depth" value="${value}" ${responseDepth===value?'checked':''}><span><b>${label}</b><small>${hint}</small></span></label>`).join('')}
+   </div>
+   <p class="kaiu-depth-cost">Las respuestas detalladas usan más neuronas de la cuota gratuita de Cloudflare.</p>
+  </section>
   <div class="kaiu-form-box"><form id="kaiu-form"><label for="kaiu-message" class="kaiu-question">¿Qué vamos a crear hoy? <span>Tu espacio: ${esc(v)}</span></label><textarea id="kaiu-message" maxlength="1200" rows="3" placeholder="Ej.: quiero leer 15 minutos al día sin distraerme..." required>${esc(draft)}</textarea>
    <div class="kaiu-prompt-bottom"><span>✎ Explicá tu objetivo con tus palabras</span><span id="kaiu-count">${draft.length}/1200</span></div>
    <label class="kaiu-consent"><input type="checkbox" id="kaiu-consent" ${shareStats?'checked':''}><span>Permitir estadísticas resumidas de esta app (sin notas privadas ni datos de la bóveda).</span></label>
@@ -122,15 +132,31 @@ function screen(){
    <div class="kaiu-chat-log">${archive.history.length?archive.history.map(m=>`<div class="kaiu-chat-bubble ${m.role==='user'?'user':'ai'}"><b>${m.role==='user'?'Vos':'Kaiu'} · ${esc(m.module)}</b><p>${esc(m.text)}</p></div>`).join(''):'<p class="kaiu-hint">Empezá una conversación con Kaiu.</p>'}</div>
    ${archive.history.length?'<button type="button" id="kaiu-clear-history" class="kaiu-text-danger">Borrar conversación</button>':''}
   </details>
-  <div class="kaiu-answer" id="kaiu-answer" aria-live="polite">${lastReply?'<div class="kaiu-answer-head">✦ Última respuesta</div><p>'+esc(lastReply)+'</p>':'<div class="kaiu-answer-head">✦ Tu espacio de ideas</div><p class="kaiu-muted">Escribí tu meta o seleccioná una sugerencia. Podés consultar la IA real o usar el modo local sin internet.</p>'}</div>
+  <div class="kaiu-answer" id="kaiu-answer" aria-live="polite">${lastReply?'<div class="kaiu-answer-head">✦ Última respuesta</div><div class="kaiu-rich-reply">'+replyHtml(lastReply)+'</div>':'<div class="kaiu-answer-head">✦ Tu espacio de ideas</div><p class="kaiu-muted">Escribí tu meta o seleccioná una sugerencia. Podés consultar la IA real o usar el modo local sin internet.</p>'}</div>
   <div id="kaiu-proposals"></div>
   <p class="kaiu-privacy"><span aria-hidden="true">♢</span><span><b>Privado por defecto.</b> Tu pregunta y el módulo se envían a Cloudflare solo si tocás IA. Las estadísticas, recuerdos e historial dependen de los permisos que elijas. La conversación se guarda localmente por usuario y no se sincroniza automáticamente entre dispositivos. Kaiu nunca guarda cambios sin tu aprobación.</span></p>
  </div>`;
 }
 function render(){const who=C.userId();if(who!==displayUserId){displayUserId=who;draft='';current=[];lastReply='';shareStats=false;shareHistory=true;shareMemories=false;crossScopes=[];connectionStatus='';continuityNotice='';}const panel=$('kaiu-panel');if(!panel)return;panel.hidden=!open;if(open){panel.innerHTML=screen();renderProposals()}}
 function historyContent(){const archive=C.overview();return `<summary>◎ Conversación anterior (${archive.history.length/2} intercambios)</summary><p class="kaiu-hint">Guardada solo en este navegador por cuenta.</p><div class="kaiu-chat-log">${archive.history.map(m=>`<div class="kaiu-chat-bubble ${m.role==='user'?'user':'ai'}"><b>${m.role==='user'?'Vos':'Kaiu'} · ${esc(m.module)}</b><p>${esc(m.text)}</p></div>`).join('')}</div><button type="button" id="kaiu-clear-history" class="kaiu-text-danger">Borrar conversación</button>`}
+function replyHtml(raw){
+ // Small, safe presentation layer: escape content BEFORE interpreting formatting.
+ const safeLine=x=>esc(x).replace(/\*\*([^*\n]{1,140})\*\*/g,'<strong>$1</strong>');
+ const chunks=String(raw||'').slice(0,6200).replace(/\r/g,'').split('\n');
+ let html='',list='';
+ const flush=()=>{if(list){html+='</'+list+'>';list=''}};
+ for(const value of chunks){const t=value.trim();if(!t){flush();continue}
+  const heading=t.match(/^#{1,3}\s+(.+)$/);
+  const ordered=t.match(/^\d{1,2}[.)]\s+(.+)$/);
+  const bullet=t.match(/^(?:[-•*])\s+(.+)$/);
+  if(heading){flush();html+='<h4>'+safeLine(heading[1])+'</h4>';continue}
+  if(ordered||bullet){const tag=ordered?'ol':'ul';if(list!==tag){flush();list=tag;html+='<'+list+'>'}html+='<li>'+safeLine((ordered||bullet)[1])+'</li>';continue}
+  flush();html+='<p>'+safeLine(t)+'</p>';
+ }
+ flush();return html||'<p>No llegó contenido para mostrar.</p>';
+}
 function renderProposals(){const node=$('kaiu-proposals');if(!node)return;const valid=current.map((x,i)=>{try{const d=G.preview(x);return {index:i,data:d}}catch{return null}}).filter(Boolean).slice(0,10);if(!valid.length){node.innerHTML='';return}node.innerHTML='<h3>✦ Propuestas para revisar ('+valid.length+')</h3><div class="kaiu-proposals">'+valid.map(x=>'<label class="kaiu-proposal"><input type="checkbox" data-kaiu-select="'+x.index+'" checked><span><strong>'+esc(x.data.title)+'</strong><small>'+esc(x.data.detail)+'</small></span></label>').join('')+'</div><button type="button" class="kaiu-approve" id="kaiu-approve">✓ Aprobar y guardar</button><button type="button" class="kaiu-cancel" id="kaiu-cancel">Descartar propuestas</button>'}
-function answer(result,kind){current=Array.isArray(result?.actions)?result.actions.slice(0,10):[];source=kind;lastReply=String(result?.reply||'').slice(0,1800);const node=$('kaiu-answer');if(node){node.classList.remove('is-error');node.innerHTML='<div class="kaiu-answer-head">✦ '+(kind==='local'?'Vista previa · modo local':'Respuesta de Kaiu · Cloudflare AI')+'</div><p>'+esc(lastReply)+'</p>';}renderProposals()}
+function answer(result,kind){current=Array.isArray(result?.actions)?result.actions.slice(0,10):[];source=kind;lastReply=String(result?.reply||'').slice(0,6200);const node=$('kaiu-answer');if(node){node.classList.remove('is-error');node.innerHTML='<div class="kaiu-answer-head">✦ '+(kind==='local'?'Vista previa · modo local':'Respuesta de Kaiu · Cloudflare AI')+'</div><div class="kaiu-rich-reply">'+replyHtml(lastReply)+'</div>';}renderProposals()}
 async function propose(useAI){if(busy)return;const prompt=$('kaiu-message')?.value.trim();if(!prompt){$('kaiu-message')?.focus();return}draft=prompt;shareStats=!!$('kaiu-consent')?.checked;busy=true;const v=view(),node=$('kaiu-answer');if(node){node.classList.remove('is-error');node.innerHTML='<div class="kaiu-answer-head">✦ Procesando</div><p>'+ (useAI?'Consultando el modelo de Cloudflare…':'Preparando opciones locales…') +'</p>';}for(const b of document.querySelectorAll('#kaiu-form button'))b.disabled=true;
  try{const r=useAI?await requestAI(prompt,v,shareStats):sample(prompt,v);if(useAI)C.addExchange(prompt,r.reply,v);answer(r,useAI?'ai':'local');if(useAI){const log=document.querySelector('.kaiu-chat-details');if(log)log.innerHTML=historyContent();}}
  catch(e){current=[];if(node){node.classList.add('is-error');node.innerHTML='<div class="kaiu-answer-head">⚠ No se pudo conectar</div><p>'+esc(e.name==='AbortError'?'Tiempo de espera agotado.':e.message)+'</p><p class="kaiu-muted">Usá «Comprobar conexión y sesión» para ver el motivo, o probá el modo local gratuito.</p>';}renderProposals()}
@@ -154,7 +180,8 @@ if(e.target.closest('#kaiu-test-connection')){void testConnection();return;} if(
 });aside.addEventListener('input',e=>{if(e.target.id==='kaiu-message'){draft=e.target.value;const count=$('kaiu-count');if(count)count.textContent=draft.length+'/1200';}if(e.target.id==='kaiu-consent')shareStats=e.target.checked});aside.addEventListener('change',e=>{if(e.target.id==='kaiu-consent')shareStats=e.target.checked;
  if(e.target.id==='kaiu-history-opt')shareHistory=e.target.checked;
  if(e.target.id==='kaiu-memory-opt')shareMemories=e.target.checked;
+ if(e.target.name==='kaiu-depth'){responseDepth=validDepth(e.target.value);localStorage.setItem(DEPTH_KEY,responseDepth);aside.querySelectorAll('.kaiu-depth-choice').forEach(x=>x.classList.toggle('active',x.querySelector('input')?.checked));}
  if(e.target.matches('[data-kaiu-scope]')){const k=e.target.dataset.kaiuScope;crossScopes=e.target.checked?[...new Set([...crossScopes,k])]:crossScopes.filter(x=>x!==k);const x=$('kaiu-shared-preview');if(x)x.textContent=JSON.stringify(C.aggregate(crossScopes));const s=e.target.closest('details')?.querySelector('summary');if(s)s.textContent='🔗 Compartir datos resumidos de otras apps ('+crossScopes.length+')';}
  });window.addEventListener('hashchange',()=>{if(open)render()});document.addEventListener('click',e=>{if(open&&e.target.closest('[data-go]'))setTimeout(render,0)})}
-window.KaiuAssistant={open:()=>{open=true;render()},forModule:m=>{if(m&&m!==view())location.hash='#'+m;open=true;render()}};window.JoshAIDebug={sample,context,continuity:C};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
+window.KaiuAssistant={open:()=>{open=true;render()},forModule:m=>{if(m&&m!==view())location.hash='#'+m;open=true;render()}};window.JoshAIDebug={sample,context,continuity:C,replyHtml};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 })();

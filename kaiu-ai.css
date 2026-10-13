@@ -110,3 +110,23 @@
 .kaiu-chat-bubble b{display:block;color:#bdfda1;font-size:10px;margin-bottom:5px}
 .kaiu-chat-bubble.user b{color:#c1dcf8}
 .kaiu-chat-bubble p{font-size:11px;margin:0;color:#d9f0ec;white-space:pre-wrap;overflow-wrap:anywhere}
+
+/* Kaiu 6.4 — three output depths, readable answers, untouched application pages. */
+.kaiu-depth-box{border:1px solid #759a8e55;border-radius:15px;background:linear-gradient(120deg,#172b36,#172334);padding:12px 13px;margin:13px 0;}
+.kaiu-depth-heading{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 10px;margin:0 0 10px}
+.kaiu-depth-heading strong{color:#e5fff0;font-size:11px}.kaiu-depth-heading small{font-size:9px;color:#abc7c1}
+.kaiu-depth-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.kaiu-depth-choice{position:relative;display:flex;align-items:center;justify-content:center;min-height:65px;text-align:center;background:#1e303f;border:1px solid #5c7476;border-radius:11px;cursor:pointer;padding:8px 5px;transition:background .2s ease,border-color .2s ease}
+.kaiu-depth-choice.active{background:#235147;border-color:#baf5a4;box-shadow:0 0 0 1px #b6f7a444 inset}
+.kaiu-depth-choice input{position:absolute;opacity:0;width:100%;height:100%;inset:0;cursor:pointer}
+.kaiu-depth-choice:focus-within{outline:2px solid #d6ffb5;outline-offset:2px}
+.kaiu-depth-choice b{display:block;font-size:11px;color:#effdf5}.kaiu-depth-choice small{display:block;font-size:9px;color:#a8c4be;margin-top:5px;line-height:1.25}
+.kaiu-depth-cost{font-size:9px;color:#a7c5b8;line-height:1.5;margin:9px 0 0}
+.kaiu-rich-reply{font-size:12px;line-height:1.75;overflow-wrap:anywhere}
+.kaiu-rich-reply p{margin:9px 0;white-space:normal}
+.kaiu-rich-reply p:first-child{margin-top:0}
+.kaiu-rich-reply h4{margin:14px 0 7px;color:#c6ffbc;font-size:12px;font-weight:900;line-height:1.5}
+.kaiu-rich-reply ol,.kaiu-rich-reply ul{padding-left:21px;margin:8px 0 12px;display:grid;gap:7px}
+.kaiu-rich-reply li{padding-left:3px;color:#e0f2eb}
+.kaiu-rich-reply strong{color:#f0ffeb}
+@media(max-width:410px){.kaiu-depth-choices{gap:4px}.kaiu-depth-choice{padding:8px 3px}.kaiu-depth-choice b{font-size:10px}.kaiu-depth-choice small{font-size:8px}}
