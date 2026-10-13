@@ -186,3 +186,7 @@ En **Mis versículos** aparece el explorador: pasaje al azar de una biblioteca d
 Tipos de registro admitidos para aprobación: tarea, hábito, meta de ahorro, tarjeta de estudio, objetivo PRO, nota, bloque horario, presupuesto y proyecto. Sin transferencias, pagos, borrados automáticos ni acceso a la bóveda.
 
 Leé [ACTIVAR_KAIU_AI.md](./ACTIVAR_KAIU_AI.md) para configurar Josh Cloud, la cuota diaria, los secretos y la función. Requiere uso de OpenAI API con facturación independiente a ChatGPT Plus. El modo local no usa API ni factura solicitudes.
+
+## Actualización 5.1 — Kaiu en todas las aplicaciones
+
+Agrega 38 especialidades de Kaiu con sugerencias locales gratuitas y guardado mediante aprobación. Para el uso, la privacidad, los límites y la instalación, consultá [`KAIU_EN_TODAS_LAS_APPS.md`](./KAIU_EN_TODAS_LAS_APPS.md). La IA generativa real continúa siendo **opcional y no desplegada**. Las apps independientes pueden recibir asistentes locales mediante sus paquetes de actualización propios. **No** se agregó un módulo de pareja.

@@ -1,6 +1,6 @@
 {
   "name": "joshos-android",
-  "version": "5.0.0-beta.1",
+  "version": "5.1.0",
   "private": true,
   "scripts": {
     "android": "cap add android",
