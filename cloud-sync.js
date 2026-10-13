@@ -159,6 +159,6 @@ function mount(){
  interval=setInterval(()=>{if(account && navigator.onLine)void syncNow()},60000);
  if(configured()&&session){checkAccount().then(yes=>{if(yes){initializeChannels().catch(e=>toast(e.message));setStatus('Cuenta conectada ✓')}else setStatus('Iniciá sesión para sincronizar')})}
  }
-window.JoshCloud={notify:key=>window.dispatchEvent(new CustomEvent('cloud-local-change',{detail:{key}})),open:show,sync:syncNow};
+window.JoshCloud={notify:key=>window.dispatchEvent(new CustomEvent('cloud-local-change',{detail:{key}})),open:show,sync:syncNow,getAccessToken:async()=>{await ensureToken();return session.access_token}};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 })();

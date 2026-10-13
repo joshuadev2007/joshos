@@ -10,3 +10,7 @@
 .kaiu-suggestions{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.kaiu-suggestions button{background:#223c43;border:1px solid #457676;color:#d9f8dd;border-radius:999px;padding:8px 10px;font:600 11px system-ui;text-align:left;cursor:pointer}.kaiu-suggestions button:hover{background:#32545e}
 .kaiu-app-launch{border-color:#9fdc95!important;color:#c4f6b3!important;background:#204335!important;font-weight:800!important}
 @media(max-width:680px){.kaiu-app-launch{font-size:11px!important;padding:7px 9px!important}}
+
+/* Cloudflare AI server configuration (shown only when requested) */
+.kaiu-worker-state{display:flex;align-items:center;gap:8px;justify-content:space-between;padding:10px;background:#192c3e;border:1px solid #345065;border-radius:11px;margin-bottom:12px;color:#cbe2f2;font-size:11px}.kaiu-worker-state button{background:#263e50;color:#d3eeff;border:1px solid #58788a;padding:7px 9px;border-radius:8px;cursor:pointer;white-space:nowrap}
+#kaiu-worker-form[hidden]{display:none!important}#kaiu-worker-form{background:#172739;border:1px solid #496579;padding:12px;margin-bottom:12px;border-radius:12px}#kaiu-worker-url{display:block;width:100%;padding:10px;border-radius:8px;background:#0d1524;color:#f2f7ff;border:1px solid #6c8397;font-size:12px}#kaiu-worker-form small{display:block;margin:7px 0 10px;color:#a9c1d9}#kaiu-worker-form button{padding:9px 11px;border-radius:8px;cursor:pointer}

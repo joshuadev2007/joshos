@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kaiu-joshos-ai",
+  "main": "src/index.mjs",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "ai": { "binding": "AI" },
+  "ratelimits": [
+    {"name": "USER_RATE_LIMIT", "namespace_id": "6124037", "simple": {"limit": 8, "period": 60}}
+  ],
+  "vars": {
+    "SUPABASE_URL": "https://pdgfayuuovhjcqnzgvyb.supabase.co",
+    "SUPABASE_ANON_KEY": "sb_publishable_NVAm5s10NO_mv2FaZ3W2Xg_UDwweID7"
+  }
+}

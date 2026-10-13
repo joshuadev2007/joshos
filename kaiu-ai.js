@@ -2,6 +2,7 @@
 (()=>{'use strict';
 const G=window.JoshAIActionGate;
 const PROJECT='https://pdgfayuuovhjcqnzgvyb.supabase.co';
+const WORKER_SETTING='kaiu-workers-ai-endpoint-v1';
 const key=window.CloudDefaultConfig?.anonKey||'';
 const P={rutinas:['🌅 Kaiu Hábitos','Hábitos pequeños, sostenibles y hechos para tu vida.','#a6e7a4'],finanzas:['₡ Kaiu Financiero','Organizá tu dinero sin conectar tus cuentas bancarias.','#7ee2b4'],skillforge:['🎓 Kaiu Profesor','Practicá con tarjetas y rutas de estudio.','#c6b5ff'],agenda:['📅 Kaiu Planificador','Convertí tus ideas en tareas concretas.','#8bc3fc'],estudios:['📐 Kaiu Academia','Prepará aprendizajes con metas claras.','#e6bf8e'],negocios:['💼 Kaiu Emprendedor','Ideas de crecimiento y planes medibles.','#ffd29e'],bitacora:['📖 Kaiu Investigador','Explorá ideas y preguntas respetando tu interpretación.','#b1d8aa']};
 Object.assign(P,{
@@ -31,24 +32,57 @@ function sample(text,module){
  else{reply='Puedo ayudarte a convertir ideas en acciones. En esta vista previa local te propongo un pequeño plan de comienzo.';actions=[{type:'task',data:{title:'Definir una meta de esta semana',date,category:'Personal',notes:'Que pueda medirse y dividirse en pasos pequeños.'}},{type:'goal',data:{title:'Mi próximo avance personal',target:5,metric:'Pequeños avances completados',area:'Personal'}}]}
  return {reply,actions};
 }
-function getSession(){try{const s=JSON.parse(localStorage.getItem('joshos-cloud-v1-session')||'null');if(!s?.access_token||!s.expires_at||s.expires_at<Math.floor(Date.now()/1000)+30)return null;return s.access_token}catch{return null}}
-async function requestAI(text,module,share){const token=getSession();if(!token)throw Error('Iniciá sesión o renová tu sesión desde ☁️ Cuenta antes de usar la IA.');if(!key)throw Error('Falta la configuración pública de Josh Cloud.');const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),25000);try{
- const body={prompt:text.slice(0,1200),module,context:share?context(module):null};
- const res=await fetch(PROJECT+'/functions/v1/kaiu-ai',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token,'apikey':key},body:JSON.stringify(body),signal:ctrl.signal});
- const response=await res.json().catch(()=>({}));if(!res.ok)throw Error(response.error||('Servidor IA: error '+res.status));return response;
- }finally{clearTimeout(timer)}}
+function validWorkerEndpoint(raw){
+ try{
+  const u=new URL(String(raw||'').trim());
+  if(u.protocol!=='https:'||!/(?:^|\.)workers\.dev$/i.test(u.hostname)||!u.hostname.includes('.')||u.username||u.password||u.search||u.hash||!['/','/chat',''].includes(u.pathname))return '';
+  return u.origin;
+ }catch{return ''}
+}
+function workerEndpoint(){return validWorkerEndpoint(window.KaiuWorkerConfig?.endpoint)||validWorkerEndpoint(localStorage.getItem(WORKER_SETTING)||'')}
+async function getSession(){
+ if(window.JoshCloud?.getAccessToken)return await window.JoshCloud.getAccessToken();
+ try{
+  const s=JSON.parse(localStorage.getItem('joshos-cloud-v1-session')||'null');
+  if(s?.access_token && Number(s.expires_at||0)>Math.floor(Date.now()/1000)+30)return s.access_token;
+ }catch{}
+ throw Error('Iniciá sesión desde ☁️ Cuenta antes de consultar la IA.');
+}
+async function requestAI(text,module,share){
+ const endpoint=workerEndpoint();
+ if(!endpoint)throw Error('Todavía falta conectar la dirección pública de tu Worker de Cloudflare. Abrí «Configurar IA» y pegá la URL workers.dev.');
+ const token=await getSession();
+ const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),30000);
+ try{
+  const body={prompt:text.slice(0,1200),module,context:share?context(module):null};
+  const res=await fetch(endpoint+'/chat',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify(body),signal:ctrl.signal,cache:'no-store'});
+  const response=await res.json().catch(()=>({}));
+  if(!res.ok)throw Error(response.error||('Cloudflare: error '+res.status));
+  return {reply:String(response.reply||''),actions:Array.isArray(response.actions)?response.actions:[]};
+ }finally{clearTimeout(timer)}
+}
 function screen(){const v=view(),mode=P[v]||['✨ Kaiu AI','Un asistente distinto para cada espacio de JoshOS.','#b7f36e'];const ideas=window.KaiuExperts?.ideas?.(v)||[];return `<div class="kaiu-head" style="--kaiu-accent:${mode[2]}"><div class="kaiu-avatar">✦</div><div><strong>${esc(mode[0])}</strong><small>${esc(mode[1])}</small></div><button class="kaiu-close" aria-label="Cerrar asistente" type="button" data-kaiu-close>×</button></div>
  <div class="kaiu-content"><p class="kaiu-callout"><strong>Tu copiloto, no piloto automático.</strong> Kaiu puede preparar cambios, pero siempre elegís cuáles guardar.</p>
+ <div class="kaiu-worker-state"><span>${workerEndpoint()?'🟢 IA real disponible mediante Cloudflare (con cuota gratuita)':'🟡 IA real pendiente: las propuestas locales siguen disponibles'}</span><button type="button" id="kaiu-worker-settings">⚙️ Configurar IA</button></div>
+ <form id="kaiu-worker-form" hidden><label for="kaiu-worker-url">URL pública del Worker (workers.dev)</label><input type="url" id="kaiu-worker-url" placeholder="https://kaiu-joshos-ai.tucuenta.workers.dev" value="${esc(workerEndpoint())}" required><small>Solo necesitás pegarla una vez. No ingresés claves ni contraseñas aquí. Si me compartís la URL pública, la incorporamos a JoshOS para futuros APK/EXE.</small><button class="kaiu-secondary" type="submit">Guardar servidor de Kaiu</button></form>
  <div class="kaiu-suggestions">${ideas.map((x,i)=>`<button type="button" data-kaiu-idea="${i}">${esc(x)}</button>`).join('')}</div>
  <form id="kaiu-form"><label for="kaiu-message">¿En qué te ayudo hoy?</label><textarea id="kaiu-message" maxlength="1200" rows="3" placeholder="Ej.: quiero crear hábitos fáciles de mantener…" required></textarea>
  <label class="kaiu-consent"><input type="checkbox" id="kaiu-consent"> Permitir enviar estadísticas resumidas de este módulo a la IA, sin notas privadas ni contenido de la bóveda.</label>
- <div class="kaiu-controls"><button type="button" class="kaiu-secondary" id="kaiu-ideas">✨ Propuestas locales sin IA</button><button type="submit" class="kaiu-primary">☁️ Consultar IA</button></div></form>
+ <div class="kaiu-controls"><button type="button" class="kaiu-secondary" id="kaiu-ideas">✨ Propuestas locales sin IA</button><button type="submit" class="kaiu-primary">☁️ Preguntar a Kaiu con IA real</button></div></form>
  <div class="kaiu-answer" id="kaiu-answer" aria-live="polite">${lastReply?'<p>'+esc(lastReply)+'</p>':'<p>Elegí una idea de esta app o escribí tu objetivo. Las propuestas locales son gratuitas y se adaptan al módulo; no generan texto con una IA real.</p>'}</div><div id="kaiu-proposals"></div>
- <p class="kaiu-privacy"><strong>Consejo:</strong> después de aprobar podés editar cada registro desde su aplicación. Las propuestas de Kaiu son borradores, no hechos comprobados.</p><p class="kaiu-privacy">Los datos enviados a la IA se procesan en un servicio externo cuando lo activés. Por defecto solo se envía tu pregunta, el módulo actual y ninguna nota privada. No hay cambios automáticos.</p></div>`}
+ <p class="kaiu-privacy"><strong>Consejo:</strong> después de aprobar podés editar cada registro desde su aplicación. Las propuestas de Kaiu son borradores, no hechos comprobados.</p><p class="kaiu-privacy">Si activás Cloudflare, tu consulta se enviará al modelo externo junto con el nombre del módulo. Por defecto solo se envía tu pregunta, el módulo actual y ninguna nota privada. No hay cambios automáticos.</p></div>`}
 function render(){const panel=$('kaiu-panel');if(!panel)return;panel.hidden=!open;if(open){panel.innerHTML=screen();renderProposals();}}
 function renderProposals(){const node=$('kaiu-proposals');if(!node)return;const valid=current.map((x,i)=>{try{const d=G.preview(x);return {index:i,data:d}}catch{return null}}).filter(Boolean).slice(0,10);if(!valid.length){node.innerHTML='';return}node.innerHTML='<h3>Propuestas para revisar ('+valid.length+')</h3><div class="kaiu-proposals">'+valid.map(x=>'<label class="kaiu-proposal"><input type="checkbox" data-kaiu-select="'+x.index+'" checked><span><strong>'+esc(x.data.title)+'</strong><small>'+esc(x.data.detail)+'</small></span></label>').join('')+'</div><button type="button" class="kaiu-approve" id="kaiu-approve">✓ Aprobar y guardar seleccionadas</button> <button type="button" class="kaiu-cancel" id="kaiu-cancel">Descartar propuestas</button>'}
 function answer(result,kind){current=Array.isArray(result?.actions)?result.actions.slice(0,10):[];source=kind;lastReply=String(result?.reply||'').slice(0,1800);if($('kaiu-answer'))$('kaiu-answer').innerHTML='<p><strong>'+(kind==='local'?'Vista previa local · sin IA':'Respuesta de IA')+'</strong></p><p>'+esc(lastReply)+'</p>';renderProposals()}
 async function propose(useAI){if(busy)return;const prompt=$('kaiu-message')?.value.trim();if(!prompt){$('kaiu-message')?.focus();return}busy=true;const v=view(),share=!!$('kaiu-consent')?.checked;const node=$('kaiu-answer');if(node)node.textContent=useAI?'Consultando a Kaiu AI…':'Preparando opciones locales…';try{const r=useAI?await requestAI(prompt,v,share):sample(prompt,v);answer(r,useAI?'ai':'local')}catch(e){current=[];if(node)node.textContent='No se pudo consultar la IA: '+(e.name==='AbortError'?'Tiempo de espera agotado.':e.message)+'. Podés usar Propuestas locales mientras tanto.';renderProposals()}finally{busy=false}}
-function mount(){const button=document.createElement('button');button.id='kaiu-fab';button.type='button';button.textContent='✦ Kaiu';button.setAttribute('aria-label','Abrir Kaiu AI');const aside=document.createElement('aside');aside.id='kaiu-panel';aside.hidden=true;aside.setAttribute('aria-label','Asistente Kaiu AI');document.body.append(button,aside);button.addEventListener('click',()=>{open=!open;render()});aside.addEventListener('click',e=>{if(e.target.closest('[data-kaiu-close]')){open=false;render()}if(e.target.closest('[data-kaiu-idea]')){const i=Number(e.target.closest('[data-kaiu-idea]').dataset.kaiuIdea);const idea=window.KaiuExperts?.ideas?.(view())?.[i];if(idea){const inp=$('kaiu-message');inp.value=idea;void propose(false)}}if(e.target.closest('#kaiu-ideas'))void propose(false);if(e.target.closest('#kaiu-cancel')){current=[];lastReply='Propuestas descartadas; no se guardó nada.';render()}if(e.target.closest('#kaiu-approve')){const picks=[...aside.querySelectorAll('input[data-kaiu-select]:checked')].map(x=>current[Number(x.dataset.kaiuSelect)]).filter(Boolean);if(!picks.length){$('kaiu-answer').textContent='Seleccioná al menos una propuesta.';return}const labels=picks.map(x=>G.preview(x).title).join('\n• ');if(!confirm('¿Querés crear estos registros en JoshOS?\n\n• '+labels))return;try{window.JoshOSActions?.applyAI(picks);current=[];lastReply='¡Guardado! Se crearon '+picks.length+' registros en los módulos correspondientes.';render()}catch(err){$('kaiu-answer').textContent='No se pudieron guardar los cambios: '+err.message}}});aside.addEventListener('submit',e=>{if(e.target.id==='kaiu-form'){e.preventDefault();void propose(true)}});window.addEventListener('hashchange',()=>{if(open)render()});document.addEventListener('click',e=>{if(open&&e.target.closest('[data-go]'))setTimeout(render,0)})}
+function mount(){const button=document.createElement('button');button.id='kaiu-fab';button.type='button';button.textContent='✦ Kaiu';button.setAttribute('aria-label','Abrir Kaiu AI');const aside=document.createElement('aside');aside.id='kaiu-panel';aside.hidden=true;aside.setAttribute('aria-label','Asistente Kaiu AI');document.body.append(button,aside);button.addEventListener('click',()=>{open=!open;render()});aside.addEventListener('click',e=>{if(e.target.closest('#kaiu-worker-settings')){const form=$('kaiu-worker-form');form.hidden=!form.hidden;return;} if(e.target.closest('[data-kaiu-close]')){open=false;render()}if(e.target.closest('[data-kaiu-idea]')){const i=Number(e.target.closest('[data-kaiu-idea]').dataset.kaiuIdea);const idea=window.KaiuExperts?.ideas?.(view())?.[i];if(idea){const inp=$('kaiu-message');inp.value=idea;void propose(false)}}if(e.target.closest('#kaiu-ideas'))void propose(false);if(e.target.closest('#kaiu-cancel')){current=[];lastReply='Propuestas descartadas; no se guardó nada.';render()}if(e.target.closest('#kaiu-approve')){const picks=[...aside.querySelectorAll('input[data-kaiu-select]:checked')].map(x=>current[Number(x.dataset.kaiuSelect)]).filter(Boolean);if(!picks.length){$('kaiu-answer').textContent='Seleccioná al menos una propuesta.';return}const labels=picks.map(x=>G.preview(x).title).join('\n• ');if(!confirm('¿Querés crear estos registros en JoshOS?\n\n• '+labels))return;try{window.JoshOSActions?.applyAI(picks);current=[];lastReply='¡Guardado! Se crearon '+picks.length+' registros en los módulos correspondientes.';render()}catch(err){$('kaiu-answer').textContent='No se pudieron guardar los cambios: '+err.message}}});aside.addEventListener('submit',e=>{
+ if(e.target.id==='kaiu-worker-form'){
+  e.preventDefault();const endpoint=validWorkerEndpoint($('kaiu-worker-url')?.value);
+  if(!endpoint){const status=$('kaiu-answer');if(status)status.textContent='La URL debe ser HTTPS y pertenecer a un Worker workers.dev, sin rutas ni claves.';return}
+  localStorage.setItem(WORKER_SETTING,endpoint);render();if($('kaiu-answer'))$('kaiu-answer').textContent='Dirección guardada en este dispositivo. Iniciá sesión en ☁️ Cuenta y ya podés probar la IA real.';
+  return;
+ }
+ if(e.target.id==='kaiu-form'){e.preventDefault();void propose(true)}
+});window.addEventListener('hashchange',()=>{if(open)render()});document.addEventListener('click',e=>{if(open&&e.target.closest('[data-go]'))setTimeout(render,0)})}
 window.KaiuAssistant={open:()=>{open=true;render()},forModule:m=>{if(m&&m!==view())location.hash='#'+m;open=true;render()}};window.JoshAIDebug={sample,context};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 })();

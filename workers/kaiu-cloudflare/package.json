@@ -1,0 +1,8 @@
+{
+  "name": "kaiu-joshos-cloudflare-ai",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {"deploy":"wrangler deploy","dev":"wrangler dev","check":"node --check src/index.mjs"},
+  "devDependencies": {"wrangler":"^4.45.0"}
+}

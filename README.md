@@ -1,3 +1,17 @@
+# JoshOS 6.1 · Kaiu con Cloudflare Workers AI ✦
+
+**NUEVO: IA generativa real opcional.** Integramos un Worker de Cloudflare con Workers AI y modelo Llama 3.1 8B, autenticación Josh Cloud (Supabase), acceso restringido a un único usuario mediante `ALLOWED_USER_ID`, límite de 8 consultas/minuto y propuestas que **siempre requieren aprobación** antes de guardarse. El servicio no se publica ni activa por sí mismo: consultá **[ACTIVAR_KAIU_CLOUDFLARE_GRATIS.md](./ACTIVAR_KAIU_CLOUDFLARE_GRATIS.md)**.
+
+- **Sin pagos obligatorios:** Workers Free ofrece 10.000 neuronas por día de asignación gratuita; si se agota, la consulta falla. No son 10.000 preguntas. No pases a Workers Paid sin revisar los precios.
+- **Sin repetir URL en cada dispositivo:** una vez que publiques el Worker, podés incorporar su dirección pública en `kaiu-worker-config.js`. Hasta entonces, JoshOS permite guardarla manualmente una sola vez en cada navegador.
+- **Privacidad:** por defecto solo se transmite la consulta que escribís y el módulo actual. Los datos agregados son opt-in. Las notas privadas y la bóveda no se envían automáticamente. Los contenidos de tus preguntas sí se procesarán en Cloudflare.
+- **Modo local intacto:** «✨ Propuestas locales sin IA» sigue disponible sin conexión y sin servicio externo.
+- **Versión 6.1:** `kaiu-ai.js`, `cloud-sync.js`, `kaiu-ai.css`, `kaiu-worker-config.js`, `native/prepare.mjs` y `sw.js` actualizados. Ambos preparadores `mobile`/`desktop` incluyen la nueva configuración.
+
+**Estado de verificación:** pruebas de servidor simulado y navegación/guardado locales pasadas. Todavía no se ha desplegado el Worker en la cuenta del usuario ni probado un APK/EXE construido con esta versión.
+
+---
+
 # JoshOS 6.0 · Kaiu Life Engine ✦
 
 Nueva versión con una **sección independiente Mi evolución · Kaiu** y cinco herramientas gratuitas integradas:
