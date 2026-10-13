@@ -1,3 +1,9 @@
+# JoshOS 6.3 — Kaiu Continuidad + Contexto Controlado
+
+Actualización optativa sobre JoshOS 6.2: conversación de varias preguntas, recuerdos escritos y borrados por el usuario, datos resumidos de otras apps solo por categoría autorizada, preservando Kaiu Premium y el modo local. Ver `GUIA_KAIU_CONTINUIDAD_6_3.md` para instalar tanto web como Worker. El historial no se sincroniza con Josh Cloud y no se incluye en el respaldo JSON habitual.
+
+---
+
 # JoshOS 6.2 · Kaiu AI Premium — actualización de octubre de 2026
 
 La nueva versión actualiza el encabezado, moderniza el panel Kaiu (PC y móvil), incluye comprobación de sesión (`/auth-check`) y respuestas de error más precisas en el Worker. Tu proyecto Reino Rojinegro no se altera. Se conserva el modelo de IA, la seguridad por UID y la aprobación previa de cada propuesta. **La causa exacta del error de Supabase debe verificarse tras el nuevo despliegue; no damos por solucionado el problema sin ese diagnóstico.**
