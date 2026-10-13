@@ -1,3 +1,20 @@
+# JoshOS 6.0 · Kaiu Life Engine ✦
+
+Nueva versión con una **sección independiente Mi evolución · Kaiu** y cinco herramientas gratuitas integradas:
+
+- **Kaiu Morning / Mi día:** resumen en el inicio y plan diario editable a partir de tareas y hábitos reales.
+- **Kaiu Night:** registro personal de logros, lecciones, gratitud y energía, con edición y eliminación.
+- **Mi evolución:** últimas 7 jornadas de tareas terminadas, hábitos registrados y minutos de estudio/enfoque, con gráfico accesible.
+- **Kaiu Insights:** recomendaciones transparentes en función de los registros disponibles, sin analizar la bóveda ni el diario.
+- **Kaiu Connect:** propuestas entre apps (Rituales + Agenda) que se guardan únicamente después de aprobarlas.
+- **Mi memoria:** preferencias de objetivos, concentración, horario y privacidad, guardadas en el JSON principal y compatibles con Josh Cloud.
+
+**100 % local, gratuito y sin API para Life Engine.** No es IA generativa, no realiza cambios automáticos ni trabaja mientras la app está cerrada.
+
+**Manual completo:** [COMO_USAR_LIFE_ENGINE.md](./COMO_USAR_LIFE_ENGINE.md). Realizá un respaldo JSON antes de actualizar. No incluye app de pareja.
+
+---
+
 # JoshOS 4.0 MEGA — ecosistema personal multipropósito
 
 ## Novedades de JoshOS 4.0 MEGA
