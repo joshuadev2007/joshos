@@ -1,0 +1,12 @@
+JOSHOS 4.0 MEGA — CÓMO ACTUALIZAR
+
+1. Primero exportá tu JSON de JoshOS 3.0 y respaldos de Bitácora / LevelUp si se usan por separado.
+2. ZIP DE ACTUALIZACIÓN: extraé los archivos y reemplazalos en tu repositorio joshos, conservando las rutas.
+3. ZIP COMPLETO: contiene todo el proyecto, incluidas las dependencias empaquetadas y PDFs de estudio.
+4. GitHub Pages: al terminar de publicar, recargá forzando Ctrl+F5 y comprobá que aparecen las ocho apps nuevas.
+5. Compilar APK/EXE en GitHub Actions solo cuando estés conforme; no se han compilado en este paquete.
+6. Iniciá sesión en Josh Cloud con correo y contraseña. La URL y clave pública siguen preconfiguradas.
+7. Antes de sincronizar datos muy distintos entre equipos exportá respaldos JSON de ambos. No hay fusión automática de cambios.
+
+Las funciones de archivos, contabilidad y avisos son registros y cálculos locales. No prometen conectividad externa ni notificaciones push.
+NO INCLUYE LA APP DE PAREJA.

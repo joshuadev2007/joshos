@@ -1,4 +1,37 @@
-# JoshOS 3.0 STUDIO — entorno personal modular
+# JoshOS 4.0 MEGA — ecosistema personal multipropósito
+
+## Novedades de JoshOS 4.0 MEGA
+
+JoshOS 4.0 MEGA incorpora ocho miniaplicaciones **con portada, navegación interna, almacenamiento, búsqueda, edición y estadísticas propias**:
+
+| Aplicación | Herramientas útiles |
+|---|---|
+| ✒️ Mi Diario Personal | Entradas por fecha, estado de ánimo, gratitud, búsqueda, historial y exportación CSV |
+| ⚖️ Decision Lab | Registro de decisiones, criterios, alternativas puntuadas de 0 a 10, comparación y seguimiento |
+| 🗂️ Mis Documentos | Catálogo de referencias, ubicación física/digital y fechas de vencimiento; no sube documentos |
+| 🏡 Mi Hogar | Tareas y mantenimientos, áreas, próximas fechas, periodicidad y registro de realización |
+| 🛍️ Compras Inteligentes | Lista de deseos, prioridad, tiendas, comparación de costos y marcación de compras |
+| 🧳 Viajes y Planes | Destinos, presupuestos, fechas, actividades, maleta, reservas y verificación de elementos |
+| 🖥️ Vida Digital | Dispositivos, inventario tecnológico y planes de respaldo/revisión sin almacenar contraseñas |
+| 🏹 Objetivos PRO | Metas cuantificables, métricas, fechas y registro de progreso |
+
+También aparecen **Herramientas PRO** e **Informes** en 22 espacios ya existentes: Mis Colones, SkillForge, Agenda, Tuanis Manager, Ahorros, Proyectos, Bienestar, Aula Mágica, Inventario, Control+, Mi Academia, Enfoque, Despensa, Cocina, contactos y muchos otros. Algunas funciones incluyen deudas y abonos parciales, cotizaciones informales con costos/márgenes, bloques de tiempo, simulador de tarjetas, biblioteca de actividades para Materno, riesgos de proyectos, citas breves, prácticas, control de oportunidades y exportación CSV.
+
+### Guardado, cuentas y límites
+
+- Se conserva la clave de almacenamiento `joshos-life-v1`; los campos añadidos se guardan dentro del **mismo objeto** y forman parte del respaldo JSON y del canal Josh Cloud correspondiente. No hay migración destructiva de esquemas.
+- La sincronización se realiza con instantáneas completas del módulo y resolución manual de conflictos, no fusión colaborativa. No trabajés simultáneamente en dispositivos distintos sin sincronizar.
+- No incorpora integración bancaria, avisos push, conexión de contactos del teléfono, facturación fiscal, ni transferencias de dinero. Los recordatorios son visuales al entrar en la app. Los documentos se catalogan pero **no** se suben a la nube ni se guardan como archivos.
+- Evitá añadir números confidenciales o contraseñas a los campos ordinarios. Supabase no proporciona cifrado de extremo a extremo para el resto de los módulos. La bóveda existente conserva su cifrado propio.
+- La app de pareja permanece excluida. Las copias originales de Bitácora 3.4 y LevelUp siguen incluidas.
+
+### Probar y actualizar
+
+1. Exportá **Configuración → Exportar todo JoshOS (.json)** en los dispositivos actuales antes de reemplazar nada.
+2. Para actualizar el repositorio, extraé el ZIP de actualización y subí las carpetas y archivos conservando rutas. Para instalar Android/Windows, necesitás compilar **después** de publicar estos archivos; los ZIP contienen código fuente, no APK/EXE ya generados.
+3. Para evitar pérdida de datos en Android, mantené el mismo identificador de app y clave de firma que la versión instalada. Un APK debug firmado en otro servidor podría no actualizar sobre el anterior: guardá tu respaldo antes de reinstalar.
+4. Verificá la autenticación Josh Cloud y después la sincronización real en dos dispositivos; las pruebas automáticas locales no sustituyen esa prueba.
+
 
 **Edición nueva:** diseño y herramientas especiales por cada área, módulos originales preservados, seis apps nuevas, explorador aleatorio de versículos en Bitácora 3.4 y Josh Cloud preconfigurado. **No hay app de pareja**.
 
