@@ -178,3 +178,11 @@ En **Mis versículos** aparece el explorador: pasaje al azar de una biblioteca d
 - La Bóveda utiliza cifrado local para sus notas; el resto de los datos de nube no tiene cifrado de extremo a extremo.
 - Se comprobó el funcionamiento de varias vistas y 12 operaciones en un navegador aislado, así como la lógica de versículos. **No se ha hecho compilación final de APK/EXE ni prueba real de Josh Cloud en dos dispositivos**.
 - En nuevas versiones de Windows/Android debe compilarse el código con GitHub Actions y probarse el instalador resultante. No desinstalés la versión vieja sin respaldo.
+
+## JoshOS 5.0 beta — Kaiu AI (prototipo funcional + servidor listo para desplegar)
+
+**Un asistente contextual dentro de los módulos**: al pulsar `✦ Kaiu`, su especialidad cambia según la app actual. Permite generar propuestas locales sin IA sobre hábitos, tareas, ahorros, estudio y agenda, y aprobar individualmente qué se guarda. La interfaz también se conecta a una Supabase Edge Function, cuyo código se incluye para activarla con una **clave OpenAI API solo en secretos del servidor**. En esta entrega la función **no está desplegada** y las respuestas generativas no han sido probadas con API real.
+
+Tipos de registro admitidos para aprobación: tarea, hábito, meta de ahorro, tarjeta de estudio, objetivo PRO, nota, bloque horario, presupuesto y proyecto. Sin transferencias, pagos, borrados automáticos ni acceso a la bóveda.
+
+Leé [ACTIVAR_KAIU_AI.md](./ACTIVAR_KAIU_AI.md) para configurar Josh Cloud, la cuota diaria, los secretos y la función. Requiere uso de OpenAI API con facturación independiente a ChatGPT Plus. El modo local no usa API ni factura solicitudes.

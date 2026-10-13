@@ -1,0 +1,11 @@
+JoshOS 5.0 beta — Kaiu AI
+
+1) Respaldá la instalación anterior con JSON.
+2) Subí TODOS los archivos del ZIP de actualización a tu repo joshos, respetando sus rutas.
+3) No compiles sin comprobar la web y revisar el respaldo.
+4) Kaiu funciona YA en modo «Propuestas locales sin IA», con aprobación de cambios.
+5) La IA generativa real todavía NO está activa. Consultá ACTIVAR_KAIU_AI.md para preparar
+   la Edge Function autenticada, el límite de consultas y los secretos de OpenAI.
+6) No agregues claves privadas al repositorio, web ni APK.
+7) Las actualizaciones de la Bitácora y LevelUp integradas de JoshOS 4.0 se conservan.
+8) Sin app de pareja.

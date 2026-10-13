@@ -1,0 +1,5 @@
+# @supabase/server verifies the user's JWT and handles browser CORS.
+# Platform verify_jwt is disabled so new-style sb_publishable_ headers work;
+# the user auth check is REQUIRED and is enforced by withSupabase({auth:'user'}).
+[functions.kaiu-ai]
+verify_jwt = false
