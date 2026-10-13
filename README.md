@@ -1,3 +1,15 @@
+# JoshOS 6.2 · Kaiu AI Premium — actualización de octubre de 2026
+
+La nueva versión actualiza el encabezado, moderniza el panel Kaiu (PC y móvil), incluye comprobación de sesión (`/auth-check`) y respuestas de error más precisas en el Worker. Tu proyecto Reino Rojinegro no se altera. Se conserva el modelo de IA, la seguridad por UID y la aprobación previa de cada propuesta. **La causa exacta del error de Supabase debe verificarse tras el nuevo despliegue; no damos por solucionado el problema sin ese diagnóstico.**
+
+Revisá `GUIA_ACTUALIZAR_KAIU_PREMIUM_6_2.md` para los dos pasos: subir la web a GitHub y volver a publicar SOLO el Worker Kaiu desde PowerShell. Ningún archivo de usuario ni tabla de Supabase se borra por actualizar el código. Hacé una copia de seguridad antes de actualizar.
+
+---
+
+# JoshOS 6.1.1 — Kaiu AI en Cloudflare configurado + caché renovada
+
+Consultá `ACTUALIZAR_JOSHOS_6_1_1.md` para actualizar la web sin perder tus datos.
+
 # JoshOS 6.1 · Kaiu con Cloudflare Workers AI ✦
 
 **NUEVO: IA generativa real opcional.** Integramos un Worker de Cloudflare con Workers AI y modelo Llama 3.1 8B, autenticación Josh Cloud (Supabase), acceso restringido a un único usuario mediante `ALLOWED_USER_ID`, límite de 8 consultas/minuto y propuestas que **siempre requieren aprobación** antes de guardarse. El servicio no se publica ni activa por sí mismo: consultá **[ACTIVAR_KAIU_CLOUDFLARE_GRATIS.md](./ACTIVAR_KAIU_CLOUDFLARE_GRATIS.md)**.
